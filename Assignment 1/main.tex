@@ -1,0 +1,223 @@
+\documentclass{article}
+\usepackage {inputenc, fullpage, listings, amsmath}
+
+\parindent 0pt
+
+\title{%
+   ECE 458 (Spring 2022) Assignment 1 \\
+   \large Alex Holland V00}
+    
+\date{}
+
+\begin{document}
+
+\maketitle
+
+{\bf Question 1}\\
+We have $n$ layers of the protocol hierarchy. At each of the layers, $h-bytes$ are added. Thus the total number of header bytes is $nh$. The payload is $M$ bytes, so the total packet size is $M+nh$.
+
+\begin{align*}
+Message && M\\
+Layer\;1 && M+h\\
+Layer\;2 && M+h+h=M+2h\\
+Layer\;3 && M+h+h+h=M+3h\\
+...\\
+Layer\;n && M+nh
+\end{align*}
+Therefore the fraction of network bandwidth that is filled with headers is:
+\begin{equation*}
+    \frac{nh}{M+nh}
+\end{equation*}
+
+{\bf Question 2}\\
+\begin{equation*}
+    \begin{split}
+    D &= \text{Transmission rate}\\
+    L &= \text{Bytes per packet}\\
+    R &= \text{Round trip time}\\ 
+    D=L/R &= (5 \; packets)(1500byte \; packets)/0.1s\\
+    &= 75000 \; bytes/s
+    \end{split}
+\end{equation*}
+
+{\bf Question 3}\\
+The following are advantages of using a  circuit-switched network over a packet-switched network:
+\begin{itemize}
+    \item Connection between two systems will be done with a steady bandwidth, dedicated channel, and consistent data rate.
+    \item Circuit-switched network ensures that data is delivered in it's correct sequence.
+    \item Ideal for voice communication due to minimized delay and information loss.
+\end{itemize}
+The following are advantages of TDM over FDM in a circuit-switched network:
+\begin{itemize}
+    \item TDM generally has more flexibility and efficiency then FDM since it dynamically allocates more time periods to signals that require more bandwidth, while decreasing time periods for signals that do not. 
+    \item TDM can use all the bandwidth (multiplexing).
+\end{itemize}
+
+{\bf Question 4}\\
+An image is 3840 × 2160 pixels with 3 bytes/pixel. The time it takes to transmit over a 56-kbps modem channel:
+\begin{equation*}
+    \begin{split}
+    & (3840\times2160\;pixel)\times(3\;bytes/pixel) =24,883,200\;bytes\\
+    & 24,883,200\;bytes=199,065,600\;bits\\
+    & (199,065,600\;bits) / (56000\;bits/sec) = 3,554.743\;sec
+    \end{split}
+\end{equation*}
+
+The time it takes to transmit over a 1-Mbps cable modem:
+\begin{equation*}
+    \begin{split}
+    & (199,065,600\;bits) / (1,000,000\;bits/sec) = 199.066\;sec
+    \end{split}
+\end{equation*}
+
+The time it takes to transmit over a 10-Mbps Ethernet:
+\begin{equation*}
+    \begin{split}
+    & (199,065,600\;bits) / (10,000,000\;bits/sec) = 19.907\;sec
+    \end{split}
+\end{equation*}
+
+The time it takes over a 100-Mbps Ethernet:
+\begin{equation*}
+    \begin{split}
+    & (199,065,600\;bits) / (100,000,000\;bits/sec) = 1.991\;sec
+    \end{split}
+\end{equation*}
+
+The time it takes over gigabit Ethernet:
+\begin{equation*}
+    \begin{split}
+    & (199,065,600\;bits) / (1,000,000,000\;bits/sec) = 0.199\;sec
+    \end{split}
+\end{equation*}
+
+{\bf Question 5}\\
+(a)\\
+Distance between A and B is $20,000km = 2\times10^7m$. The transmission rate between A and B is $R=2Mbps=2\times10^6bps$. It is given that propagation speed over the link is $2.5\times10^8m/s$.\\
+\begin{equation*}
+    \begin{split}
+    d_{prop} &= \frac {Distance}{Speed}=\frac{2\times10^7m}{2.5\times10^8m/s}=0.08s\\
+    R \times d_{prop} &= 2\times10^6 \times 0.08s=16 \times 10^4bits
+    \end{split}
+\end{equation*}
+
+(b)\\
+The bandwidth-delay product is the maximum number of bits that can be on the link at any given time. Since
+\begin{equation*}
+    \begin{split}
+    800,000 < 16 \times 10^4bits\\
+    R \times d_{proj} = (2 \times 10^6) (0.08) = 16 \times 10^4bits
+    \end{split}
+\end{equation*}
+
+(c)\\
+The bandwidth-delay product can be interpreted as the maximum number of bits that can be on the link at any given time.
+
+\bigskip
+(d)\\
+The width of a bit can be represented by the length of the link divided by the number of bits the link can carry. See the following expression:
+\begin{equation*}
+    \begin{split}
+       \text{width of bit} = \frac{length \; (m)}{(R)(d_{prop})} = \frac{m}{(R)(m/s)} = \frac{Speed \; (s)}{Transmission \; rate \; (R)}
+    \end{split}
+\end{equation*}
+
+(e)\\
+The width of the bit in this link can determined using the general expression determined in part d.
+\begin{equation*}
+    \begin{split}
+        \frac{Speed}{Transmission \; rate} = \frac{2.5 \times 10^8 \; m/s}{2 \times 10^6 \; bps} = 125 \; m/bit
+    \end{split}
+\end{equation*}
+
+{\bf Question 6}\\
+(a)\\
+The throughput of a file from Host A to Host B can be determined by:
+\begin{equation*}
+    \begin{split}
+        \text{throughput for file transfer} &= min(R1, R2, R3)\\
+        &= min(500\;kbps, 2\;Mbps, 1\;Mbps)\\
+        &= 500 \; kbps
+    \end{split}
+\end{equation*}
+
+(b)\\
+\begin{equation*}
+    \begin{split}
+        delay &= (file size)/(throughput)\\
+        &= (4,000,000\;bytes)(8)/(500\;kbps)(1000)\\
+        &= 64.0s
+    \end{split}
+\end{equation*}
+
+(c)\\
+i. $throughput = min(500 \; kbps, 100 \; kbps, 1 \; Mbps) = 100 \; kbps$\\
+ii. $delay = (4,000,000 \; bytes)(8)/(100 \; kbps)(1000) = 320s$
+
+\bigskip
+{\bf Question 7}\\
+\begin{equation*}
+    \begin{split}
+        \text{Propagation Delay} &= Distance/Speed = (2,500m)/(2.5 \times 10^8m/s)\\
+        &= 1.0 \times 10^{-5}s
+    \end{split}
+\end{equation*}
+The total time for the packet propagate over the link is $1.0 \times 10^{-5}s = 0.01ms$\\
+*Note: Transmission rate is not needed in this question since we are only determining the propagation delay.
+
+\bigskip
+{\bf Question 8}\\
+(a)\\
+A circuit-switched network would be more appropriate for an application that transmits data at a steady rate. Since the transmission rate is known, bandwidth could be reserved for each application session without excessive waste. We would not have to worry about the cost of setting up a connection because the application continues running for a relatively long period of time.\\
+
+(b)\\
+There is no requirement for any form of congestion control because each link has enough bandwidth to support the capacity of the sum of all application data rates which is less then the capacity of each link. 
+
+\bigskip
+{\bf Question 9}\\
+(a)\\
+Since a circuit switch is used, bandwidth must be reserved.
+\begin{equation*}
+    \begin{split}
+        \text{Max users} = \frac{3Mbps}{150kbps} = \frac{3000kbps}{150kbps} = 20 
+    \end{split}
+\end{equation*}
+
+(b)\\
+The probability that a given user is transmitting is $p=0.1$.
+
+\bigskip
+(c)\\
+Using binomial distribution we can determine the probability that at any given time, exactly n users are transmitting simultaneously:\\
+\\
+The different possible ways of choosing $n$ users from a total $120$: ${120 \choose n}$\\
+Probability of $n-k$ users not transmitting: $(1-p)^{120-n}$\\
+Probability of choosing $n$ users transmitting: $p^n$\\
+
+\begin{equation*}
+    \begin{split}
+        P(n) = {120 \choose n} p^{n} (1-p)^{120-n} 
+    \end{split}
+\end{equation*}
+
+{\bf Question 10}\\
+i.\\
+The end system delay to transmit the 1st, 2nd, and 3rd packet onto their respective link is $\frac{L}{R_1}, \frac{L}{R_2}, \frac{L}{R_3}$ respectively. The packet propagates over the 1st, 2nd, and 3rd link with a delay of $\frac{d_1}{s_1}, \frac{d_2}{s_2}, \frac{d_3}{s_3}$ respectively. There are two packet switches which delays each packet by $d_{proc}$, thus $2d_{proc}$.
+\begin{equation*}
+    \begin{split}
+       d_{end-to-end} = 2d_{proc}+\frac{L}{R_1}+\frac{L}{R_2}+\frac{L}{R_3}+\frac{d_1}{s_1}+\frac{d_2}{s_2}+\frac{d_3}{s_3}
+    \end{split}
+\end{equation*}
+
+ii.\\
+Using the end-to-end delay formula determined in (i) we find that:
+\begin{equation*}
+    \begin{split}
+       d_{end-to-end} &= 2(0.003\;msec)+\frac{(1500\;bytes)(8)}{2,000,000\;bps}+\frac{(1500\;bytes)(8)}{2,000,000\;bps}+\frac{(1500\;bytes)(8)}{2,000,000\;bps}
+       \\&+\frac{5000\;km(1000)}{2.5\times10^8\;m/s}+\frac{4000\;(1000)}{2.5\times10^8\;m/s}+\frac{(1000\;km)(1000)}{2.5\times10^8\;m/s}\\
+       \\&= 0.006 + 0.018 + 0.02 + 0.016 + 0.004\\
+       &= 0.064\;s
+    \end{split}
+\end{equation*}
+
+\end{document}
