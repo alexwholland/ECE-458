@@ -1,0 +1,227 @@
+\documentclass{article}
+\usepackage {inputenc, fullpage, listings, amsmath}
+
+\parindent 0pt
+
+\title{%
+   ECE 458 (Spring 2022) Assignment 3 \\
+   \large Alex Holland V00}
+    
+\date{}
+
+\begin{document}
+
+\maketitle
+
+{\bf Question 1}\\
+Forwarding moves a packet from a router's input link to it's appropriate output link. Forwarding uses a forwarding table to map a network number to an outgoing interface. Whereas routing determines the route between the source and destination. Routing, uses a routing table to forward a packet along it's best appropriate path.
+
+\bigskip
+{\bf Question 2}\\
+Host B knows it should pass the segment to TCP rather than UDP or some other upper-layer protocol by using the value of the protocol field. When a TCP segment encapsulated in a IP datagram, the IP datagram contains a field called protocol which is of size 8 bits. If the value of the protocol field is 6, then the network layer knows to pass the segment to TCP rather than to UDP.
+
+\bigskip
+{\bf Question 3}\\
+To ensure that a packet is forwarded through no more than N routers the Time-to-live field is used. The Time-to-live field indicates the lifetime of data in a network. Everytime the datagram is forwarded through a router the Time-to-live field is decremented. The datagram is destroyed and can no longer be forwarded if the Time-to-live field is decremented to zero. Thus a datagram is not forwarded through more than N routers.
+
+\bigskip
+{\bf Question 4}\\
+No common bytes in the IP datagram are shared when computing the checksum between the segment and datagram header, only the IP header is used to compute the checksum at the network layer. The TCP/UDP segments and IP datagram may be using different protocol stacks, when a TCP segment is encapsulated in an IP datagram it is not necessary to use common bytes when computing the checksum.
+
+
+\bigskip
+{\bf Question 5}\\
+The datagram limit is $1,500 \; bytes$ (including header). Assuming the header is $20 \; bytes$ in the TCP segment. Each data gram carries $1,500 \; bytes - 20 \; bytes - 20 \; bytes = 1,460 \; bytes$ of the MP3. The number of datagram required to send the entire MP3 is $\lceil \frac{5\times10^6}{1460} \rceil=3425$. The last datagram will be $960+40=1000 \; bytes$.
+
+\bigskip
+{\bf Question 6}\\
+i)\\
+From the subnet prefix 128.119.128/26 only 6 bits can be manipulated. So we can show 128.119.40.10000000 where the last 6 bits are the host bits, we can pick an IP address between 000001 to 111110. E.g. 128.119.40.129.
+
+ii)\\
+We can determine the subnet prefix from 128.119.40.64/26, knowing that $32-26=6$ bits can be used. So we can show 128.119.40.01000000 where the last 6 bits can be changed. With four subnets, each IP address block will have $2^4=16$ hosts per subnet. To determine the subnet mask we can calculate:
+
+\begin{equation*}
+    \begin{split}
+       & 11111111\\
+       - & 01110000\\
+       &\text{\_\_\_\_\_\_\_\_\_\_\_}\\
+       & 10001111\\
+    \end{split}
+\end{equation*}
+
+Which gives a mask of 28. Thus the four subnets are:
+
+\begin{itemize}
+  \item 128.119.40.64/28
+  \item 128.119.40.80/28
+  \item 128.119.40.96/28
+  \item 128.119.40.112/28
+\end{itemize}
+
+
+\bigskip
+{\bf Question 7}\\
+{\bf a)}\\
+The Home addresses are 192.168.1, 192.168.2, 192.168.3 and the router interface is 192.168.4.
+
+{\bf b)}\\
+\begin{align*}
+WAN && LAN\\
+24.34.112.235, 5000 && 192.168.1.1, 3345\\
+24.34.112.235, 5001 && 192.168.1.1, 3346\\
+24.34.112.235, 5002 && 192.168.1.2, 3445\\
+24.34.112.235, 5003 && 192.168.1.2, 3446\\
+24.34.112.235, 5004 && 192.168.1.3, 3545\\
+24.34.112.235, 5005 && 192.168.1.3, 3546\\
+\end{align*}
+
+\bigskip
+{\bf Question 8}\\
+{\bf a)}\\
+The address space 36.248.210.0/23 is public.
+
+{\bf b)}\\
+We can determine the number of hosts with $2^x-2$ where x is the number of host ID bits in the IP address. Thus, the most hosts that can be in this address space is $2^9-2=510$.
+
+{\bf c)}\\
+Subnet A has 48 hosts, so it will need at least 50 (110010) addresses. The least number of bits required is 6 bits, so $2^6=64$ then we add 64 to the previous subnet. Thus, the subnet address of subnet A is 36.248.210.0/26.
+
+{\bf d)}\\
+The broadcast address of subnet A is 36.248.210.63, it is the last address in the IP range.
+
+{\bf e)}\\
+Add 1 to the subnet address and so the subnet of A is 36.248.210.1.
+
+{\bf f)}\\
+Subtract 1 from the broadcast address and so the ending address of subnet A is 36.248.210.62.
+
+{\bf g)}\\
+Subnet B has 77 hosts, so it will need at least 79 (1001111) addresses. The least number of bits required is 7 bits, so $2^7=128$ then we add 128 to the previous subnet. Thus, the subnet address of subnet B is 36.248.210.64/25.
+
+{\bf h)}\\
+The broadcast range of subnet B is 36.248.210.191, it is the last address in the IP range.
+
+{\bf i)}\\
+Add 1 to the subnet address as so the subnet address of B is 36.248.210.65.
+
+{\bf j)}\\
+Subtract 1 from the broadcast address and so the ending address of subnet B is 36.248.210.190.
+
+\bigskip
+{\bf Question 9}\\
+Assume that the destination host IP address is 128.119.162.181.\\
+{\bf a)}\\
+The main purposes of employing NAT are:
+\begin{itemize}
+  \item Map multiple local private addresses to a public one before transferring
+  information.
+  \item Allow devices on a  private network to access a public network (in the case of this question; the network).
+  \item Limit the number of public IP addresses for economic/security reasons.
+\end{itemize}
+
+{\bf b)}\\
+The source IP address for the datagram sent by the host before it reaches the router is 10.0.1.20.
+
+{\bf c)}\\
+At step 1, the destination IP address is 128.119.162.181.
+
+{\bf d)}\\
+The source IP address for the datagram after is has been transmitted by the router is 135.122.191.218.
+
+{\bf e)}\\
+At step 2, the destination IP address is 128.119.162.181.
+
+{\bf f)}\\
+Yes, the NAT translation table will change the source port.
+
+{\bf g)}\\
+The source IP address for this datagram is 128.119.162.181.
+
+{\bf h)}\\
+The destination IP address for this datagram is 135.122.191.218.
+
+{\bf i)}\\
+The source IP address for this datagram 128.119.162.181.
+
+{\bf j)}\\
+The destination IP address for this datagram is 10.0.1.20.
+
+\bigskip
+{\bf Question 10}\\
+{\bf a)}\\
+IPv4 datagram
+
+{\bf b)}\\
+141.42.14.178
+
+{\bf c)}\\
+The destination address is 115.41.208.156
+
+{\bf d)}\\
+Yes, the datagram encapsulates another datagram
+
+{\bf e)}\\
+The source address of the encapsulated datagram is 467A:F6DA:512D:6581:7B62:3BDB:863B:4666
+
+{\bf f)}\\
+The destination address of the encapsulated datagram is E556:A61F:12F8:E4D8:B86E:D6BA:DFB8:33B1
+
+{\bf g)}\\
+IPv4 datagram
+
+{\bf h)}\\
+The source address of the c to b datagram is 141.42.14.178
+
+{\bf i)}\\
+The destination address of the c to b datagram is 115.41.208.156
+
+{\bf j)}\\
+Yes, the datagram encapsulates another datagram
+
+{\bf k)}\\
+The source address of the encapsulated datagram is 467A:F6DA:512D:6581:7B62:3BDB:863B:4666
+
+{\bf l)}\\
+The destination address of the encapsulated datagram is E556:A61F:12F8:E4D8:B86E:D6BA:DFB8:33B1
+
+{\bf m)}\\
+IPv4 datagram
+
+{\bf n)}\\
+The source address of the c to b datagram is 141.42.14.178
+
+{\bf o)}\\
+The destination address of the c to b datagram is 115.41.208.156
+
+{\bf p)}\\
+Yes, the datagram encapsulates another datagram
+
+{\bf q)}\\
+The source address of the encapsulated datagram is 467A:F6DA:512D:6581:7B62:3BDB:863B:4666
+
+{\bf r)}\\
+The destination address of the encapsulated datagram is E556:A61F:12F8:E4D8:B86E:D6BA:DFB8:33B1
+
+{\bf s)}\\
+IPv6 datagram
+
+{\bf t)}\\
+The source address of the encapsulated datagram is 467A:F6DA:512D:6581:7B62:3BDB:863B:4666
+
+{\bf u)}\\
+The destination address of the encapsulated datagram is E556:A61F:12F8:E4D8:B86E:D6BA:DFB8:33B1
+
+{\bf v)}\\
+No, the datagram does not encapsulate another datagram
+
+{\bf w)}\\
+The tunnel entrance is router B
+
+{\bf x)}\\
+The tunnel exit is router E
+
+{\bf y)}\\
+IPv4 encapsulates the IPv6 protocol
+
+\end{document}
